@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DigiSolution - Solusi Produk Digital Modern</title>
+    <script
+      type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-ePNdnhZD2jL4CLl6"
+    ></script>
+    <style>
+      :root {
+        --primary: #8b5cf6; /* Ungu */
+        --primary-hover: #7c3aed;
+        --dark-bg: #0f172a;
+        --card-bg: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --gray: #334155;
+        --white: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--dark-bg);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Utility */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+      }
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* Navbar */
+      nav {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid var(--gray);
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 100px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+      }
+
+      .hero-content {
+        flex: 1;
+      }
+      .hero-image {
+        flex: 1;
+        text-align: right;
+      }
+      .hero-image img {
+        width: 100%;
+        max-width: 500px;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2);
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+      }
+
+      /* Features Section */
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .features {
+        padding: 80px 0;
+        background: #161e2d;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        background: var(--card-bg);
+        padding: 30px;
+        border-radius: 16px;
+        border: 1px solid var(--gray);
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+      }
+      .card h3 {
+        margin-bottom: 15px;
+      }
+      .card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Products Section */
+      .products {
+        padding: 80px 0;
+      }
+      .product-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--gray);
+      }
+
+      .product-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+      .price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 15px 0;
+        display: block;
+      }
+
+      /* Checkout Modal */
+      #checkout-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
+
+      .modal-content {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 450px;
+        position: relative;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid var(--gray);
+        background: var(--dark-bg);
+        color: white;
+      }
+
+      /* FAQ */
+      .faq {
+        padding: 80px 0;
+        background: #161e2d;
+      }
+      .faq-item {
+        margin-bottom: 15px;
+        border-bottom: 1px solid var(--gray);
+        padding-bottom: 15px;
+      }
+      .faq-item h4 {
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+
+      /* Footer */
+      footer {
+        padding: 50px 0;
+        text-align: center;
+        border-top: 1px solid var(--gray);
+      }
+
+      /* Loading Animation */
+      .loading {
+        pointer-events: none;
+        opacity: 0.7;
+      }
+      .loading::after {
+        content: "...";
+        animation: dots 1s steps(5, end) infinite;
+      }
+      @keyframes dots {
+        0%,
+        20% {
+          content: ".";
+        }
+        40% {
+          content: "..";
+        }
+        60% {
+          content: "...";
+        }
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          text-align: center;
+          padding: 50px 0;
+        }
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div
+        class="container"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+        "
+      >
+        <div class="logo">DigiSolution</div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#products">Produk</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+        <a href="#products" class="btn btn-primary">Mulai Sekarang</a>
+      </div>
+    </nav>
+
+    <header class="hero container">
+      <div class="hero-content">
+        <h1>Solusi Digital Untuk Masa Depan Anda</h1>
+        <p>
+          Dapatkan aset digital premium mulai dari AI Prompt, E-Book, hingga
+          Course Video untuk mengakselerasi karir dan bisnis Anda.
+        </p>
+        <div style="display: flex; gap: 15px">
+          <a href="#products" class="btn btn-primary">Lihat Produk</a>
+          <a href="#" class="btn btn-outline">Beli Sekarang</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img
+          src="https://placehold.net/default.png"
+          alt="Digital Product Mockup"
+        />
+      </div>
+    </header>
+
+    <section class="features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Mengapa Memilih Kami?</h2>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>💎 Kualitas Premium</h3>
+            <p>
+              Setiap produk dikurasi secara ketat oleh tim ahli untuk memastikan
+              standar terbaik.
+            </p>
+          </div>
+          <div class="card">
+            <h3>♾️ Akses Selamanya</h3>
+            <p>
+              Sekali beli, Anda mendapatkan akses seumur hidup termasuk
+              pembaruan gratis.
+            </p>
+          </div>
+          <div class="card">
+            <h3>🌱 Eco-Friendly</h3>
+            <p>
+              100% digital. Tanpa limbah fisik, tanpa biaya pengiriman, ramah
+              lingkungan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="products container">
+      <div class="section-title">
+        <h2>Produk Unggulan</h2>
+      </div>
+      <div class="grid-3">
+        <div class="product-card">
+          <img
+            src="https://placehold.net/default.png"
+            class="product-img"
+            alt="AI Pack"
+          />
+          <div class="product-info">
+            <h3>AI Prompt Pack</h3>
+            <p>Kumpulan 1000+ prompt untuk produktivitas maksimal.</p>
+            <span class="price">Rp 150.000</span>
+            <button
+              class="btn btn-primary w-100"
+              onclick="openCheckout('AI Prompt Pack', 150000)"
+            >
+              Beli
+            </button>
+          </div>
+        </div>
+        <div class="product-card">
+          <img
+            src="https://placehold.net/default.png"
+            class="product-img"
+            alt="E-Book"
+          />
+          <div class="product-info">
+            <h3>E-Book Digital Biz</h3>
+            <p>Panduan membangun bisnis digital dari nol untuk pemula.</p>
+            <span class="price">Rp 99.000</span>
+            <button
+              class="btn btn-primary w-100"
+              onclick="openCheckout('E-Book Digital Biz', 99000)"
+            >
+              Beli
+            </button>
+          </div>
+        </div>
+        <div class="product-card">
+          <img
+            src="https://placehold.net/default.png"
+            class="product-img"
+            alt="Course"
+          />
+          <div class="product-info">
+            <h3>Video Course UI/UX</h3>
+            <p>Belajar desain modern dengan tools terkini secara mendalam.</p>
+            <span class="price">Rp 450.000</span>
+            <button
+              class="btn btn-primary w-100"
+              onclick="openCheckout('Video Course UI/UX', 450000)"
+            >
+              Beli
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="checkout-modal">
+      <div class="modal-content">
+        <h2 style="margin-bottom: 20px">Detail Pembayaran</h2>
+        <p
+          id="selected-product-name"
+          style="color: var(--primary); font-weight: bold"
+        ></p>
+        <hr
+          style="margin: 15px 0; border: 0; border-top: 1px solid var(--gray)"
+        />
+
+        <div class="form-group">
+          <label>Order ID</label>
+          <input type="text" id="order-id" readonly />
+        </div>
+        <div class="form-group">
+          <label>Total Harga (Rp)</label>
+          <input type="text" id="gross-amount" readonly />
+        </div>
+        <div class="form-group">
+          <label>Email Anda</label>
+          <input
+            type="email"
+            id="customer-email"
+            placeholder="contoh@mail.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Nomor HP</label>
+          <input
+            type="tel"
+            id="customer-phone"
+            placeholder="08123456789"
+            required
+          />
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 30px">
+          <button
+            class="btn btn-outline"
+            style="flex: 1"
+            onclick="closeModal()"
+          >
+            Batal
+          </button>
+          <button
+            id="pay-button"
+            class="btn btn-primary"
+            style="flex: 2"
+            onclick="processPayment()"
+          >
+            Bayar Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section id="faq" class="faq">
+      <div class="container">
+        <div class="section-title"><h2>Pertanyaan Umum</h2></div>
+        <div style="max-width: 800px; margin: 0 auto">
+          <div class="faq-item">
+            <h4>Bagaimana cara menerima produk?</h4>
+            <p>
+              Setelah pembayaran berhasil, link download akan dikirimkan
+              otomatis ke email Anda.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Apakah ada dukungan purna jual?</h4>
+            <p>
+              Ya, tim kami siap membantu jika Anda mengalami kesulitan teknis
+              saat menggunakan produk.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Apakah pembayaran aman?</h4>
+            <p>
+              Sangat aman. Kami menggunakan Midtrans sebagai payment gateway
+              resmi yang terenkripsi.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 DigiSolution. All Rights Reserved.</p>
+        <p
+          style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px"
+        >
+          Platform ini adalah demo e-commerce produk digital profesional.
+        </p>
+      </div>
+    </footer>
+    <script
+      chatbot_id="696f7943e82787e002078bf5"
+      data-type="default"
+      src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js"
+    ></script>
+    <script>
+      // DATA PLACEHOLDERS - MASUKKAN SERVER KEY ANDA DI SINI (Hanya untuk keperluan testing Frontend)
+      // PERINGATAN: Di aplikasi nyata, Server Key tidak boleh ada di frontend.
+      const MIDTRANS_SERVER_KEY = "SB-Mid-server-xYOlB80wTumUVX5pOrXnKW4g";
+      const PROXY_URL = "https://cors-anywhere.herokuapp.com/";
+      const MIDTRANS_API_URL =
+        "https://app.sandbox.midtrans.com/snap/v1/transactions";
+
+      let currentProduct = { name: "", price: 0 };
+
+      function openCheckout(name, price) {
+        currentProduct = { name, price };
+        const timestamp = Date.now();
+        document.getElementById("order-id").value = "DE-" + timestamp;
+        document.getElementById("gross-amount").value =
+          price.toLocaleString("id-ID");
+        document.getElementById("selected-product-name").innerText = name;
+        document.getElementById("checkout-modal").style.display = "flex";
+      }
+
+      function closeModal() {
+        document.getElementById("checkout-modal").style.display = "none";
+      }
+
+      async function processPayment() {
+        const btn = document.getElementById("pay-button");
+        const email = document.getElementById("customer-email").value;
+        const phone = document.getElementById("customer-phone").value;
+        const orderId = document.getElementById("order-id").value;
+
+        if (!email || !phone) {
+          alert("Harap isi email dan nomor HP Anda");
+          return;
+        }
+
+        // Animasi Loading
+        btn.classList.add("loading");
+        btn.innerText = "Memproses";
+
+        const payload = {
+          transaction_details: {
+            order_id: orderId,
+            gross_amount: currentProduct.price,
+          },
+          item_details: [
+            {
+              id: "PROD-001",
+              price: currentProduct.price,
+              quantity: 1,
+              name: currentProduct.name,
+            },
+          ],
+          customer_details: {
+            email: email,
+            phone: phone,
+          },
+        };
+
+        try {
+          // Request ke Midtrans via Proxy
+          const response = await fetch(PROXY_URL + MIDTRANS_API_URL, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Basic " + btoa(MIDTRANS_SERVER_KEY + ":"),
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+
+          if (data.token) {
+            window.snap.pay(data.token, {
+              onSuccess: function (result) {
+                alert("Pembayaran Berhasil!");
+                closeModal();
+              },
+              onPending: function (result) {
+                alert("Menunggu Pembayaran...");
+              },
+              onError: function (result) {
+                alert("Pembayaran Gagal!");
+              },
+              onClose: function () {
+                console.log("Customer closed the popup");
+              },
+            });
+          } else {
+            console.error(data);
+            alert(
+              "Gagal mendapatkan token transaksi. Pastikan Server Key & Proxy benar.",
+            );
+          }
+        } catch (error) {
+          console.error(error);
+          alert("Terjadi kesalahan koneksi.");
+        } finally {
+          btn.classList.remove("loading");
+          btn.innerText = "Bayar Sekarang";
+        }
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        const modal = document.getElementById("checkout-modal");
+        if (event.target == modal) closeModal();
+      };
+    </script>
+  </body>
+</html>
